@@ -10,9 +10,11 @@ require (
 	github.com/google/go-cmp v0.5.2 // indirect
 	github.com/google/go-github/v32 v32.1.0
 	github.com/json-iterator/go v1.1.10 // indirect
+	github.com/kardianos/osext v0.0.0-20190222173326-2bc1f35cddc0 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/otiai10/copy v1.2.0
+	github.com/sevlyar/go-daemon v0.1.5
 	github.com/sirupsen/logrus v1.6.0
 	github.com/stretchr/testify v1.6.1 // indirect
 	golang.org/x/oauth2 v0.0.0-20200902213428-5d25da1a8d43

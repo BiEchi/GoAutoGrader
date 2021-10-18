@@ -34,8 +34,8 @@ type GradeStatus struct {
 var Queue chan *GradeTask
 var gradeStatusMap map[string]*GradeStatus
 var mutex sync.RWMutex
-var commitUrl = "[%s](https://github-dev.cs.illinois.edu/ece220-fa20-zjui/%s/tree/%s)\n\nCommit Message: %s"
-var netidWhiteList = map[string]bool{"wenqing4": true, "qili8": true, "tingkai2": true, "zikail2": true, "lumetta": true}
+var commitUrl = "[%s](https://github-dev.cs.illinois.edu/ece220-fa21-zjui/%s/tree/%s)\n\nCommit Message: %s"
+var netidWhiteList = map[string]bool{"wenqing4": true, "haob2": true, "yuey10": true, "ploskot": true, "jingshu2": true, "haozhe3": true, "lumetta": true}
 
 func GetGradeStatus() *map[string]GradeStatus {
 	statusCopy := make(map[string]GradeStatus)
