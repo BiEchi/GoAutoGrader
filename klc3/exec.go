@@ -29,14 +29,14 @@ func ExecTest() {
 
 func ExecMP(MP string, mpPath string, outputPath string, concreteDir string) error {
 
-	cmd := exec.Command("/usr/bin/python3", "test.py", fmt.Sprintf("--output-dir=%s", outputPath), fmt.Sprintf("--regression-dir=%s", concreteDir), mpPath)
+	cmd := exec.Command("/usr/bin/python3", "./test.py", fmt.Sprintf("--output-dir=%s", outputPath), fmt.Sprintf("--regression-dir=%s", concreteDir), mpPath)
 	cmd.Dir = fmt.Sprintf("/home/klc3/klc3/examples/%s", strings.ToLower(MP))
 	cmd.Env = os.Environ()
 	cmd.Env = append(cmd.Env, "LD_LIBRARY_PATH=/opt/rh/llvm-toolset-7.0/root/usr/lib64")
 	logrus.Info(cmd.String())
 
 	output, err := cmd.Output()
-	
+
 	if err != nil {
 		logrus.Error(err, string(output))
 		return err

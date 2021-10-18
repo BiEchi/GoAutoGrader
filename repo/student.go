@@ -19,7 +19,7 @@ type StudentRepo struct {
 }
 
 func GetStudentRepo(netid string) (*StudentRepo, error) {
-	directory, err := filepath.Abs(fmt.Sprintf("./assets/%s", netid))
+	directory, err := filepath.Abs(fmt.Sprintf("./assets_21/%s", netid))
 	if err != nil {
 		return nil, err
 	}
@@ -27,7 +27,7 @@ func GetStudentRepo(netid string) (*StudentRepo, error) {
 		netid: netid,
 	}
 	studentRepo.directory = directory
-	studentRepo.url = fmt.Sprintf("https://github-dev.cs.illinois.edu/ece220-fa20-zjui/%s.git", netid)
+	studentRepo.url = fmt.Sprintf("https://github-dev.cs.illinois.edu/ece220-fa21-zjui/%s.git", netid)
 
 	if err := studentRepo.init(); err != nil {
 		return nil, err
@@ -59,6 +59,7 @@ func (s *StudentRepo) GenerateGrade(sourceDir string, mp string, now time.Time) 
 
 	// Begin checkout grade
 	if err := s.checkoutGrade(); err != nil {
+		logrus.Error(err)
 		return err
 	}
 
@@ -82,6 +83,7 @@ func (s *StudentRepo) GenerateGrade(sourceDir string, mp string, now time.Time) 
 			When: now,
 		},
 	}); err != nil {
+		logrus.Error(err)
 		return err
 	}
 
@@ -93,10 +95,12 @@ func (s *StudentRepo) GenerateGrade(sourceDir string, mp string, now time.Time) 
 	}
 
 	if err := s.checkoutMaster(); err != nil {
+		logrus.Error(err)
 		return err
 	}
 
 	if err := s.worktree.Clean(&git.CleanOptions{Dir: true}); err != nil {
+		logrus.Error(err)
 		return err
 	}
 
@@ -104,12 +108,12 @@ func (s *StudentRepo) GenerateGrade(sourceDir string, mp string, now time.Time) 
 }
 
 func (s *StudentRepo) checkoutGrade() error {
-	if err := s.checkout("grade"); err != nil {
+	if err := s.checkout("feedback"); err != nil {
 		if err != plumbing.ErrReferenceNotFound {
 			return err
 		}
 		// Check for remote branch
-		remoteRef, err := s.repo.Reference("refs/remotes/origin/grade", true)
+		remoteRef, err := s.repo.Reference("refs/remotes/origin/feedback", true)
 		if err != nil {
 			if err == plumbing.ErrReferenceNotFound {
 				// We should create that on local
@@ -122,7 +126,7 @@ func (s *StudentRepo) checkoutGrade() error {
 			}
 		} else {
 			// Then we just checkout to that remote branch
-			newRef := plumbing.NewHashReference("refs/heads/grade", remoteRef.Hash())
+			newRef := plumbing.NewHashReference("refs/heads/feedback", remoteRef.Hash())
 			if err := s.repo.Storer.SetReference(newRef); err != nil {
 				return err
 			}
@@ -139,6 +143,7 @@ func (s *StudentRepo) checkoutGrade() error {
 		}
 	}
 	if err := s.pullGrade(); err != nil {
+		logrus.Error(err)
 		return err
 	}
 	return nil
@@ -147,7 +152,7 @@ func (s *StudentRepo) checkoutGrade() error {
 func (s *StudentRepo) pullGrade() error {
 	err := s.worktree.Pull(&git.PullOptions{
 		RemoteName:    "origin",
-		ReferenceName: plumbing.NewBranchReferenceName("grade"),
+		ReferenceName: plumbing.NewBranchReferenceName("feedback"),
 		Auth:          &auth,
 		Progress:      os.Stdout,
 		Force:         true,
@@ -159,7 +164,7 @@ func (s *StudentRepo) pullGrade() error {
 }
 
 func (s *StudentRepo) createGradeBranch() error {
-	symRef := plumbing.NewSymbolicReference(plumbing.ReferenceName("HEAD"), plumbing.ReferenceName("refs/heads/grade"))
+	symRef := plumbing.NewSymbolicReference(plumbing.ReferenceName("HEAD"), plumbing.ReferenceName("refs/heads/feedback"))
 	if err := s.repo.Storer.SetReference(symRef); err != nil {
 		return err
 	}

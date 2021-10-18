@@ -5,13 +5,13 @@ import (
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
-	githttp "github.com/go-git/go-git/v5/plumbing/transport/http"
 	"github.com/sirupsen/logrus"
+	githttp "github.com/go-git/go-git/v5/plumbing/transport/http"
 )
 
 var auth = githttp.BasicAuth{
-	Username: "placeholder",
-	Password: "placeholder",
+	Username: "wenqing4",
+	Password: "b943cc376aaa85d54294dea1b2eab5229d9b2812",
 }
 
 type Repo struct {
@@ -26,7 +26,7 @@ func (s *Repo) GetMasterHash() (string, string, error) {
 	if err != nil {
 		return "", "", err
 	}
-	commitMsg, err := s.repo.CommitObject(masterRef.Hash())
+	commitMsg , err := s.repo.CommitObject(masterRef.Hash())
 	if err != nil {
 		return "", "", err
 	}

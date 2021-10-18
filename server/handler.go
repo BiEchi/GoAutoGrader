@@ -13,7 +13,7 @@ import (
 
 var hook *github.Webhook
 var repoWhiteList = map[string]bool{"autograder": true, "_release": true, "klc3Storage": true, "lc3webtool": true, "feedback": true}
-var netidWhiteList = map[string]bool{"wenqing4": true, "qili8": true, "tingkai2": true, "zikail2": true, "lumetta": true}
+var netidWhiteList = map[string]bool{"wenqing4": true, "haob2": true, "yuey10": true, "ploskot": true, "jingshu2": true, "haozhe3": true, "lumetta": true}
 
 func init() {
 	var err error

@@ -6,32 +6,30 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/gin-gonic/gin"
+	"github.com/google/go-github/v32/github"
+	"golang.org/x/oauth2"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
-
-	"github.com/gin-gonic/gin"
-	"github.com/google/go-github/v32/github"
-	"golang.org/x/oauth2"
 )
 
 type loginReq struct {
-	ClientID     string `json:"client_id"`
+	ClientID string `json:"client_id"`
 	ClientSecret string `json:"client_secret"`
-	Code         string `json:"code"`
+	Code string `json:"code"`
 }
 type loginResp struct {
 	AccessToken string `json:"access_token"`
-	Error       string `json:"error"`
+	Error string `json:"error"`
 }
-
 func codeToToken(code string) (string, error) {
 	url := "https://github-dev.cs.illinois.edu/login/oauth/access_token"
 	loginReq := &loginReq{
-		ClientID:     "placeholder",
-		ClientSecret: "placeholder",
-		Code:         code,
+		ClientID: "a31e76226ecc638aba17",
+		ClientSecret: "53de1dbc986e2f66f17c0e2f0f0bf53566a99ffd",
+		Code: code,
 	}
 	reqJSON, err := json.Marshal(loginReq)
 	if err != nil {
@@ -63,7 +61,7 @@ func codeToToken(code string) (string, error) {
 func oauthHandler(c *gin.Context) {
 	accessToken, err := codeToToken(c.Query("code"))
 	if err != nil {
-		c.Redirect(302, "https://github-dev.cs.illinois.edu/login/oauth/authorize?client_id=placeholder&scope=read:user")
+		c.Redirect(302, "https://github-dev.cs.illinois.edu/login/oauth/authorize?client_id=a31e76226ecc638aba17&scope=read:user")
 		//c.JSON(400, gin.H{
 		//	"message": err.Error(),
 		//})
@@ -73,7 +71,7 @@ func oauthHandler(c *gin.Context) {
 	ctx := context.Background()
 	fmt.Printf("accessToken: %s\n", accessToken)
 	ts := oauth2.StaticTokenSource(
-		&oauth2.Token{AccessToken: accessToken},
+		&oauth2.Token{ AccessToken: accessToken },
 	)
 	tc := oauth2.NewClient(ctx, ts)
 
@@ -93,10 +91,11 @@ func oauthHandler(c *gin.Context) {
 	name := user.Name
 
 	c.HTML(http.StatusOK, "status.html", gin.H{
-		"netid":   netid,
-		"name":    name,
-		"status":  klc3.GetGradeStatusAuth(*netid),
+		"netid": netid,
+		"name": name,
+		"status": klc3.GetGradeStatusAuth(*netid),
 		"waiting": len(klc3.Queue),
 	})
 
 }
+
