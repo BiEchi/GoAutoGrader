@@ -11,10 +11,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-type Klc3Repo struct {
-	Repo
-	// TODO: Check whether we need add RW lock here
-}
+type Klc3Repo struct { Repo }
 
 var Klc3StoragePath = fmt.Sprintf("./assets/%s", "klc3Storage")
 var Klc3StorageMutex sync.RWMutex
@@ -46,7 +43,6 @@ func (s *Klc3Repo) AutoSyncExe() error {
 
 	if err := s.pull("master"); err != nil {
 		logrus.Error(err)
-		// TODO: Try to push here (maybe last commit not pushed)
 		s.repo.Push(&git.PushOptions{
 			RemoteName: "origin",
 			Auth:       &auth,
@@ -79,6 +75,7 @@ func (s *Klc3Repo) AutoSyncExe() error {
 	return nil
 }
 
+// AutoSync synchronize the local file to the server
 func (s *Klc3Repo) AutoSync() error {
 	go func() {
 		logrus.Info("Klc3Storage AutoSync started")

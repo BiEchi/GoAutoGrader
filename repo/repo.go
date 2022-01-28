@@ -5,8 +5,8 @@ import (
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
-	"github.com/sirupsen/logrus"
 	githttp "github.com/go-git/go-git/v5/plumbing/transport/http"
+	"github.com/sirupsen/logrus"
 )
 
 var auth = githttp.BasicAuth{

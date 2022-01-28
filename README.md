@@ -1,8 +1,18 @@
 # Queue System for KLC3
 
 ## Install
-```
+```shell
+# establish the working environment
+yum install git, go
+git clone https://github.com/BiEchi/GoAutoGrader
+
+# if the server is running in China, you need to include this line to set the netwrok 
+go env -w GOPROXY=https://goproxy.cn
+
+# build the source code (all dependencies will be downloaded automatically)
 go build -o queue
+
+# run the program and start watching
 ./queue
 ```
 

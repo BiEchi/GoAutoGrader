@@ -70,13 +70,13 @@ func oauthHandler(c *gin.Context) {
 
 	ctx := context.Background()
 	fmt.Printf("accessToken: %s\n", accessToken)
+	// ts == token source, tc == token client
 	ts := oauth2.StaticTokenSource(
 		&oauth2.Token{ AccessToken: accessToken },
 	)
+
 	tc := oauth2.NewClient(ctx, ts)
-
 	client := github.NewClient(tc)
-
 	client.BaseURL, _ = url.Parse("https://github-dev.cs.illinois.edu/api/v3/")
 
 	user, _, err := client.Users.Get(ctx, "")
@@ -98,4 +98,3 @@ func oauthHandler(c *gin.Context) {
 	})
 
 }
-

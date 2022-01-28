@@ -6,13 +6,13 @@ import (
 )
 
 func Listen(addr string) error {
-	r := gin.Default()
-	r.LoadHTMLGlob("templates/*")
-	r.GET("/ping", pingHandler)
-	r.GET("/status", statusHandler)
-	r.GET("/gradetest", gradeTestHandler)
-	r.POST("/webhook", webhookHandler)
-	r.Any("/queue", oauthHandler)
+	router := gin.Default()
+	router.LoadHTMLGlob("templates/*")
+	router.GET("/ping", pingHandler)
+	router.GET("/status", statusHandler)
+	router.GET("/gradetest", gradeTestHandler)
+	router.POST("/webhook", webhookHandler)
+	router.Any("/queue", oauthHandler)
 	logrus.Info("Starting server at ", addr)
-	return r.Run(addr)
+	return router.Run(addr)
 }

@@ -6,7 +6,6 @@ import (
 	"github.com/sirupsen/logrus"
 	"os"
 	"os/exec"
-	"strings"
 )
 
 var ErrKlc3Internal = errors.New("klc3 internal error")
@@ -29,8 +28,12 @@ func ExecTest() {
 
 func ExecMP(MP string, mpPath string, outputPath string, concreteDir string) error {
 
-	cmd := exec.Command("/usr/bin/python3", "test.py", fmt.Sprintf("--output-dir=%s", outputPath), fmt.Sprintf("--regression-dir=%s", concreteDir), mpPath)
-	cmd.Dir = fmt.Sprintf("/home/klc3/klc3/examples/%s", strings.ToLower(MP))
+	//cmd := exec.Command("/usr/bin/python3", "/home/ece220/klc3/klc3-code/ece220_fa21/mp1-grading/test.py",
+	//	fmt.Sprintf("--output-dir=%s", outputPath), fmt.Sprintf("--regression-dir=%s", concreteDir), mpPath)
+	//cmd.Dir = fmt.Sprintf("/home/klc3/klc3/examples/%s", strings.ToLower(MP))
+
+	cmd := exec.Command("bash", "/home/ece220/klc3/klc3-code/ece220_fa21/mp1-grading/grade-mp1.sh")
+	cmd.Dir = "/home/ece220/klc3/klc3-code/ece220_fa21/mp1-grading/"
 	cmd.Env = os.Environ()
 	cmd.Env = append(cmd.Env, "LD_LIBRARY_PATH=/opt/rh/llvm-toolset-7.0/root/usr/lib64")
 	logrus.Info(cmd.String())
