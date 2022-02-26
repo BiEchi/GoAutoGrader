@@ -32,10 +32,12 @@ func ExecMP(MP string, mpPath string, outputPath string, concreteDir string) err
 	//	fmt.Sprintf("--output-dir=%s", outputPath), fmt.Sprintf("--regression-dir=%s", concreteDir), mpPath)
 	//cmd.Dir = fmt.Sprintf("/home/klc3/klc3/examples/%s", strings.ToLower(MP))
 
-	cmd := exec.Command("bash", "/home/ece220/klc3/klc3-code/ece220_fa21/mp1-grading/grade-mp1.sh")
-	cmd.Dir = "/home/ece220/klc3/klc3-code/ece220_fa21/mp1-grading/"
-	cmd.Env = os.Environ()
-	cmd.Env = append(cmd.Env, "LD_LIBRARY_PATH=/opt/rh/llvm-toolset-7.0/root/usr/lib64")
+
+	cmd := exec.Command("echo", "Hello World!")
+	//cmd := exec.Command("bash", "/home/ece220/klc3/klc3-code/ece220_fa21/mp1-grading/grade-mp1.sh")
+	//cmd.Dir = "/home/ece220/klc3/klc3-code/ece220_fa21/mp1-grading/"
+	//cmd.Env = os.Environ()
+	//cmd.Env = append(cmd.Env, "LD_LIBRARY_PATH=/opt/rh/llvm-toolset-7.0/root/usr/lib64")
 	logrus.Info(cmd.String())
 
 	output, err := cmd.Output()

@@ -8,6 +8,7 @@ import (
 func Listen(addr string) error {
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/*")
+	router.NoRoute(noRouteHandler)
 	router.GET("/ping", pingHandler)
 	router.GET("/status", statusHandler)
 	router.GET("/gradetest", gradeTestHandler)

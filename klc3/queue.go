@@ -35,7 +35,6 @@ var Queue chan *GradeTask
 var gradeStatusMap map[string]*GradeStatus
 var mutex sync.RWMutex
 var commitUrl = "[%s](https://github-dev.cs.illinois.edu/ece220-fa21-zjui/%s/tree/%s)\n\nCommit Message: %s"
-var netidWhiteList = map[string]bool{"wenqing4": true, "haob2": true, "yuey10": true, "ploskot": true, "jingshu2": true, "haozhe3": true, "lumetta": true}
 
 func GetGradeStatus() *map[string]GradeStatus {
 	statusCopy := make(map[string]GradeStatus)
@@ -55,10 +54,6 @@ func GetGradeStatusAuth(netid string) *GradeStatus {
 	}
 	mutex.RUnlock()
 	return &status
-}
-
-func GetQueueStatus() {
-
 }
 
 func genTmpDir() (string, error) {
@@ -180,11 +175,9 @@ func genMPList(gradeTask *GradeTask) []string {
 			if utils.StringInSlice("mp/mp2/mp2.asm", commit.Added) || utils.StringInSlice("mp/mp2/mp2.asm", commit.Modified) {
 				result = append(result, "MP2")
 			}
-			// if _, ok := netidWhiteList[gradeTask.Netid]; ok {
 			if utils.StringInSlice("mp/mp3/mp3.asm", commit.Added) || utils.StringInSlice("mp/mp3/mp3.asm", commit.Modified) {
 				result = append(result, "MP3")
 			}
-			// }
 		}
 	}
 

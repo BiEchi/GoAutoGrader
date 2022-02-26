@@ -5,7 +5,6 @@ import (
 	"autograder/utils"
 	"fmt"
 	"strings"
-
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"gopkg.in/go-playground/webhooks.v5/github"
@@ -15,13 +14,11 @@ var hook *github.Webhook
 var repoWhiteList = map[string]bool{"autograder": true, "_release": true, "klc3Storage": true, "lc3webtool": true, "feedback": true}
 var netidWhiteList = map[string]bool{"wenqing4": true, "haob2": true, "yuey10": true, "ploskot": true, "jingshu2": true, "haozhe3": true, "lumetta": true}
 
-func init() {
-	var err error
-	logrus.Info("Init github webhook...")
-	hook, err = github.New(github.Options.Secret("zjuiece220zjui"))
-	if err != nil {
-		logrus.Fatal(err)
-	}
+func noRouteHandler(c *gin.Context) {
+	c.JSON(404, gin.H{
+		"code":    "PAGE_NOT_FOUND",
+		"message": "No page found. Please specify an operation like /ping",
+	})
 }
 
 func pingHandler(c *gin.Context) {
@@ -32,7 +29,7 @@ func pingHandler(c *gin.Context) {
 
 func statusHandler(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message":     "ok",
+		"message":     "oknm",
 		"waiting_num": len(klc3.Queue),
 		"status":      klc3.GetGradeStatus(),
 	})
@@ -40,10 +37,7 @@ func statusHandler(c *gin.Context) {
 
 func gradeHandler(payload *github.PushPayload) error {
 	netid := payload.Pusher.Name
-	// if _, ok := netidWhiteList[netid]; !ok {
-	// 	// Only grade whitelist for now
-	// 	return nil
-	// }
+
 	// We ignore grading whitelist repo
 	if _, ok := repoWhiteList[payload.Repository.Name]; ok {
 		return nil
@@ -92,6 +86,7 @@ func gradeTestHandler(c *gin.Context) {
 }
 
 func webhookHandler(c *gin.Context) {
+	logrus.Infof("Hello World!")
 	payload, err := hook.Parse(c.Request, github.PushEvent)
 	if err != nil {
 		_ = c.AbortWithError(400, err)
