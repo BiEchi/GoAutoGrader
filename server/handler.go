@@ -4,10 +4,10 @@ import (
 	"autograder/klc3"
 	"autograder/utils"
 	"fmt"
-	"strings"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"gopkg.in/go-playground/webhooks.v5/github"
+	"strings"
 )
 
 var hook *github.Webhook
@@ -29,7 +29,7 @@ func pingHandler(c *gin.Context) {
 
 func statusHandler(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message":     "oknm",
+		"message":     "ok",
 		"waiting_num": len(klc3.Queue),
 		"status":      klc3.GetGradeStatus(),
 	})
@@ -84,9 +84,8 @@ func gradeTestHandler(c *gin.Context) {
 		"data": manualList,
 	})
 }
-
+x
 func webhookHandler(c *gin.Context) {
-	logrus.Infof("Hello World!")
 	payload, err := hook.Parse(c.Request, github.PushEvent)
 	if err != nil {
 		_ = c.AbortWithError(400, err)

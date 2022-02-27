@@ -96,3 +96,4 @@
 2022-02-26 15:57:29.459  INFO 3952 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
 2022-02-26 15:57:29.739  INFO 3952 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9221 (http) with context path ''
 2022-02-26 15:57:29.742  INFO 3952 --- [main] c.h.a.c.CustomScannersServiceApplication : Started CustomScannersServiceApplication in 3.836 seconds (JVM running for 4.342)
+2022-02-26 23:01:54.727  INFO 3952 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
