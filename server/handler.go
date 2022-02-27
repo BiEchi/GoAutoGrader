@@ -32,7 +32,7 @@ func statusHandler(c *gin.Context) {
 		"message":     "ok",
 		"waiting_num": len(klc3.Queue),
 		"status":      klc3.GetGradeStatus(),
-	})
+	}) 
 }
 
 func gradeHandler(payload *github.PushPayload) error {
