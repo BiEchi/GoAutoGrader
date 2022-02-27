@@ -24,7 +24,7 @@ func noRouteHandler(c *gin.Context) {
 func pingHandler(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"message": "pong",
-	})
+	}) 
 }
 
 func statusHandler(c *gin.Context) {
