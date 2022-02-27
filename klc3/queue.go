@@ -216,7 +216,7 @@ func StartQueue(consumerCount int, chanSize int, waitTime time.Duration) error {
 					logrus.Warnf("grader ignore commit for no change %s - %s", gradeTask.Netid, gradeTask.Payload.HeadCommit.ID)
 					continue
 				}
-
+ 
 				shouldRun := true
 				var lastRun time.Time
 				mutex.Lock()
