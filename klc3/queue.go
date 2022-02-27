@@ -54,7 +54,7 @@ func GetGradeStatusAuth(netid string) *GradeStatus {
 	}
 	mutex.RUnlock()
 	return &status
-}  
+}    
 
 func genTmpDir() (string, error) {
 	tmpDir, err := filepath.Abs(("./tmp"))
