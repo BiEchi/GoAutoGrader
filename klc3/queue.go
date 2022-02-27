@@ -252,7 +252,7 @@ func StartQueue(consumerCount int, chanSize int, waitTime time.Duration) error {
 					// grader is running for current task, we ignore that grading request
 					logrus.Warnf("grader is running/waiting %s, lastRun = %+v, we ignore that grading request", gradeTask.Netid, lastRun)
 					continue
-				}     
+				}
 
 				var err error
 				if err = grade(gradeTask); err != nil {
