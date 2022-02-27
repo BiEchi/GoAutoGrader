@@ -215,7 +215,7 @@ func StartQueue(consumerCount int, chanSize int, waitTime time.Duration) error {
 				if len(genMPList(gradeTask)) == 0 {
 					logrus.Warnf("grader ignore commit for no change %s - %s", gradeTask.Netid, gradeTask.Payload.HeadCommit.ID)
 					continue
-				}      
+				}
 
 				shouldRun := true
 				var lastRun time.Time
@@ -252,7 +252,7 @@ func StartQueue(consumerCount int, chanSize int, waitTime time.Duration) error {
 					// grader is running for current task, we ignore that grading request
 					logrus.Warnf("grader is running/waiting %s, lastRun = %+v, we ignore that grading request", gradeTask.Netid, lastRun)
 					continue
-				}
+				} 
 
 				var err error
 				if err = grade(gradeTask); err != nil {
